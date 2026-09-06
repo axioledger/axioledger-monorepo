@@ -1,0 +1,7 @@
+{
+  "name": "@veraciphers/specs-and-docs",
+  "version": "1.0.0",
+  "description": "Veraciphers ZK Cryptography Architecture Specifications & Documentation",
+  "private": true,
+  "license": "MIT"
+}
