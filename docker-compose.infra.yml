@@ -1,0 +1,168 @@
+# Axioledger — Infrastructure Observability Stack
+#
+# Mục đích: Khởi chạy toàn bộ cụm giám sát để chứng minh SLA 99.9%
+#   với nhà đầu tư và chuẩn bị cho Testnet Phase 0.
+#
+# Bao gồm:
+#   • axio-validator    — @valiprecision/node-diagnostics HTTP server (:9100)
+#   • prometheus        — Scrape /metrics mỗi 15s
+#   • grafana           — Dashboard trực quan hóa CPU/RAM/Peers/Uptime
+#   • nginx             — Reverse proxy bảo vệ /metrics (không public)
+#
+# Cách chạy:
+#   docker compose -f docker-compose.infra.yml up -d
+#
+# Truy cập:
+#   Grafana  → http://localhost:3000  (admin / axioledger-dev)
+#   Metrics  → http://localhost:9100/metrics  (internal only — qua Nginx)
+#   Health   → http://localhost:9100/health
+#
+# Yêu cầu:
+#   • Docker Engine >= 24  •  Docker Compose v2
+#   • Build node-diagnostics trước: pnpm --filter @valiprecision/node-diagnostics build
+#
+# SECURITY (production):
+#   • Thay SECRET_KEY_BASE bằng giá trị ngẫu nhiên (openssl rand -hex 32)
+#   • Đặt GF_SECURITY_ADMIN_PASSWORD trong .env.prod (không commit)
+#   • Giới hạn Nginx /metrics chỉ cho Prometheus IP nội bộ
+
+version: "3.9"
+
+# ── Network riêng — các service không cần expose ra host ──────────────────────
+networks:
+  axio-infra:
+    driver: bridge
+
+# ── Volumes bền vững ──────────────────────────────────────────────────────────
+volumes:
+  prometheus-data:
+  grafana-data:
+
+services:
+
+  # ── 1. Axioledger Validator Node Diagnostics ──────────────────────────────
+  #
+  # Chạy PrometheusHttpServer từ @valiprecision/node-diagnostics.
+  # Xuất CPU delta thực, memory thực, uptime thực, peerCount (injectable).
+  # Port 9100 chỉ expose nội bộ — Nginx làm cửa ngõ duy nhất ra ngoài.
+  axio-validator:
+    image: node:20-slim
+    container_name: axio-validator-diagnostics
+    restart: unless-stopped
+    working_dir: /app
+    # Mount build output từ monorepo — chạy trực tiếp từ dist/
+    volumes:
+      - ./packages/valiprecision/node-diagnostics/dist:/app/dist:ro
+      - ./packages/valiprecision/node-diagnostics/package.json:/app/package.json:ro
+    command: >
+      node --experimental-vm-modules dist/index.js
+    environment:
+      NODE_ENV: production
+      DIAGNOSTICS_PORT: "9100"
+      DIAGNOSTICS_HOST: "0.0.0.0"
+      # Labels gắn vào mọi metric — hiển thị trên Grafana
+      NODE_ID: "${NODE_ID:-axio-validator-dev-01}"
+      CHAIN_ID: "${CHAIN_ID:-axioledger-testnet-phase0}"
+      REGION: "${REGION:-local}"
+      # Peer count: để 0 khi chưa wire P2P layer
+      # Production: inject qua PEER_COUNT_PROVIDER env hook
+    expose:
+      - "9100"  # chỉ nội bộ — không expose ra host
+    networks:
+      - axio-infra
+    healthcheck:
+      test: ["CMD", "node", "-e",
+        "fetch('http://localhost:9100/health').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+
+  # ── 2. Prometheus ─────────────────────────────────────────────────────────
+  #
+  # Scrape axio-validator:9100/metrics mỗi 15 giây.
+  # Retention: 15 ngày (đủ cho Phase 0 Testnet demo).
+  prometheus:
+    image: prom/prometheus:v2.51.2
+    container_name: axio-prometheus
+    restart: unless-stopped
+    command:
+      - "--config.file=/etc/prometheus/prometheus.yml"
+      - "--storage.tsdb.path=/prometheus"
+      - "--storage.tsdb.retention.time=15d"
+      - "--web.console.libraries=/usr/share/prometheus/console_libraries"
+      - "--web.console.templates=/usr/share/prometheus/consoles"
+      - "--web.enable-lifecycle"          # cho phép reload config không restart
+    volumes:
+      - ./config/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - prometheus-data:/prometheus
+    expose:
+      - "9090"  # chỉ nội bộ — Grafana truy cập trực tiếp
+    networks:
+      - axio-infra
+    depends_on:
+      axio-validator:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider",
+        "http://localhost:9090/-/healthy"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+  # ── 3. Grafana ────────────────────────────────────────────────────────────
+  #
+  # Dashboard trực quan hóa 8 metrics chính:
+  #   CPU%, Memory Used/Total, Memory Ratio, Peer Count,
+  #   Block Height, Pending TX, Uptime, Scrape Timestamp
+  #
+  # Dashboard được provisioned tự động từ
+  #   config/grafana/dashboards/axioledger-node.json
+  grafana:
+    image: grafana/grafana:10.4.2
+    container_name: axio-grafana
+    restart: unless-stopped
+    environment:
+      GF_SECURITY_ADMIN_USER: admin
+      GF_SECURITY_ADMIN_PASSWORD: "${GF_ADMIN_PASSWORD:-axioledger-dev}"
+      GF_USERS_ALLOW_SIGN_UP: "false"
+      GF_AUTH_ANONYMOUS_ENABLED: "false"
+      # Datasource và dashboard được provisioned — không cần cài tay
+      GF_PATHS_PROVISIONING: /etc/grafana/provisioning
+    volumes:
+      - grafana-data:/var/lib/grafana
+      - ./config/grafana/provisioning:/etc/grafana/provisioning:ro
+      - ./config/grafana/dashboards:/var/lib/grafana/dashboards:ro
+    ports:
+      - "3000:3000"  # duy nhất service expose ra host — cho team truy cập
+    networks:
+      - axio-infra
+    depends_on:
+      prometheus:
+        condition: service_healthy
+
+  # ── 4. Nginx Reverse Proxy ────────────────────────────────────────────────
+  #
+  # Bảo vệ endpoint /metrics — chỉ Prometheus (172.x.x.x nội bộ) được phép scrape.
+  # Public internet KHÔNG thể truy cập metrics trực tiếp.
+  #
+  # Nginx cũng phục vụ:
+  #   /health  → proxy → axio-validator:9100/health  (cho load balancer external)
+  nginx:
+    image: nginx:1.25-alpine
+    container_name: axio-nginx
+    restart: unless-stopped
+    volumes:
+      - ./config/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+    ports:
+      - "8888:80"   # external health check port (load balancer, uptime monitor)
+    networks:
+      - axio-infra
+    depends_on:
+      - axio-validator
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider",
+        "http://localhost:80/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3

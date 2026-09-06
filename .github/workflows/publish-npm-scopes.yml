@@ -1,0 +1,68 @@
+name: Publish — NPM Scopes
+
+on:
+  push:
+    tags:
+      - "v*"
+
+env:
+  PNPM_VERSION: 9.0.0
+  NODE_VERSION: "20"
+
+jobs:
+  publish-npm:
+    name: Publish packages to NPM
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write  # for npm provenance
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: ${{ env.PNPM_VERSION }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: pnpm
+          registry-url: https://registry.npmjs.org/
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build all packages
+        run: pnpm build
+
+      - name: Run tests
+        run: pnpm test
+
+      - name: Publish — @axioledger/* scope
+        run: pnpm --filter "@axioledger/*" publish --access public --no-git-checks --provenance
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Publish — @valiprecision/* scope
+        run: pnpm --filter "@valiprecision/*" publish --access public --no-git-checks --provenance
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Publish — @sequentichain/* scope
+        run: pnpm --filter "@sequentichain/*" publish --access public --no-git-checks --provenance
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Publish — @kinetoprotocol/* scope
+        run: pnpm --filter "@kinetoprotocol/*" publish --access public --no-git-checks --provenance
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Publish — @veraciphers/* scope
+        run: pnpm --filter "@veraciphers/*" --filter "!@veraciphers/specs-and-docs" publish --access public --no-git-checks --provenance
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

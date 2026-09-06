@@ -1,0 +1,120 @@
+name: Publish — Docker Images
+
+on:
+  push:
+    tags:
+      - "v*"
+
+env:
+  PNPM_VERSION: 9.0.0
+  REGISTRY: ghcr.io
+  IMAGE_NAMESPACE: ${{ github.repository_owner }}/axioledger
+
+jobs:
+  build-sequencer:
+    name: Build & Push Sequencer image
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Log in to GHCR
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Docker meta — sequencer
+        id: meta-seq
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAMESPACE }}/sequencer
+          tags: |
+            type=semver,pattern={{version}}
+            type=semver,pattern={{major}}.{{minor}}
+            type=sha
+
+      - name: Build & Push — sequencer
+        uses: docker/build-push-action@v5
+        with:
+          context: packages/sequentichain/docker-runtime
+          push: true
+          tags: ${{ steps.meta-seq.outputs.tags }}
+          labels: ${{ steps.meta-seq.outputs.labels }}
+
+  build-validator:
+    name: Build & Push Validator image
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Log in to GHCR
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Docker meta — validator
+        id: meta-val
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAMESPACE }}/validator
+          tags: |
+            type=semver,pattern={{version}}
+            type=semver,pattern={{major}}.{{minor}}
+            type=sha
+
+      - name: Build & Push — validator
+        uses: docker/build-push-action@v5
+        with:
+          context: packages/valiprecision/core-daemon
+          push: true
+          tags: ${{ steps.meta-val.outputs.tags }}
+          labels: ${{ steps.meta-val.outputs.labels }}
+
+  build-zk-prover:
+    name: Build & Push ZK Prover image
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Log in to GHCR
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Docker meta — zk-prover
+        id: meta-zk
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAMESPACE }}/zk-prover
+          tags: |
+            type=semver,pattern={{version}}
+            type=semver,pattern={{major}}.{{minor}}
+            type=sha
+
+      - name: Build & Push — zk-prover
+        uses: docker/build-push-action@v5
+        with:
+          context: packages/veraciphers/zk-prover-runtime
+          push: true
+          tags: ${{ steps.meta-zk.outputs.tags }}
+          labels: ${{ steps.meta-zk.outputs.labels }}

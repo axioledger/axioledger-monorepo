@@ -1,0 +1,110 @@
+# labels.yml — Danh sách nhãn chuẩn hoá cho Axioledger Monorepo
+#
+# File này được đọc bởi workflow sync-labels.yml.
+# Thêm/sửa label ở đây → push → workflow tự đồng bộ lên GitHub.
+# Không cần thao tác thủ công trên GitHub UI.
+
+# ── Loại Issue / PR ──
+- name: "bug"
+  color: "d73a4a"
+  description: "Báo cáo lỗi — hành vi không đúng kỳ vọng"
+
+- name: "enhancement"
+  color: "a2eeef"
+  description: "Tính năng mới hoặc cải tiến hiện có"
+
+- name: "documentation"
+  color: "0075ca"
+  description: "Thay đổi hoặc bổ sung tài liệu"
+
+- name: "question"
+  color: "d876e3"
+  description: "Cần thêm thông tin hoặc làm rõ"
+
+- name: "duplicate"
+  color: "cfd3d7"
+  description: "Issue hoặc PR đã tồn tại trước đó"
+
+- name: "wontfix"
+  color: "ffffff"
+  description: "Sẽ không xử lý trong phiên bản hiện tại"
+
+# ── Vùng kỹ thuật (maps to CODEOWNERS teams) ──
+- name: "core"
+  color: "0e8a16"
+  description: "Liên quan đến packages/axioledger, sequentichain, kinetoprotocol"
+
+- name: "contracts"
+  color: "e4e669"
+  description: "Smart contracts, escrow, IBC contracts"
+
+- name: "frontend"
+  color: "fbca04"
+  description: "Applications trong apps/, UI components"
+
+- name: "security"
+  color: "b60205"
+  description: "Vấn đề bảo mật — veraciphers, kms, cryptography"
+
+- name: "docs"
+  color: "0075ca"
+  description: "Tài liệu kỹ thuật, API docs"
+
+- name: "ci/cd"
+  color: "5319e7"
+  description: "GitHub Actions, DevOps, build pipeline"
+
+# ── Trạng thái Review / Merge ──
+- name: "needs-review"
+  color: "0052cc"
+  description: "PR đang chờ ít nhất 1 lượt review"
+
+- name: "approved"
+  color: "0e8a16"
+  description: "PR đã được approve — sẵn sàng merge"
+
+- name: "changes-requested"
+  color: "e11d48"
+  description: "Reviewer yêu cầu sửa đổi trước khi merge"
+
+- name: "blocked"
+  color: "b60205"
+  description: "Bị chặn bởi dependency hoặc quyết định bên ngoài"
+
+# ── Độ ưu tiên ──
+- name: "priority: critical"
+  color: "b60205"
+  description: "Cần xử lý ngay — ảnh hưởng production"
+
+- name: "priority: high"
+  color: "e4e669"
+  description: "Sprint hiện tại — quan trọng"
+
+- name: "priority: medium"
+  color: "0075ca"
+  description: "Sprint tiếp theo"
+
+- name: "priority: low"
+  color: "cfd3d7"
+  description: "Backlog — khi có thời gian"
+
+# ── Kích thước PR ──
+- name: "size: XS"
+  color: "3cbf00"
+  description: "Thay đổi rất nhỏ (< 10 dòng)"
+
+- name: "size: S"
+  color: "5d9801"
+  description: "Thay đổi nhỏ (10–50 dòng)"
+
+- name: "size: M"
+  color: "e4e669"
+  description: "Thay đổi trung bình (50–200 dòng)"
+
+- name: "size: L"
+  color: "ee9900"
+  description: "Thay đổi lớn (200–500 dòng)"
+
+- name: "size: XL"
+  color: "d73a4a"
+  description: "Thay đổi rất lớn (> 500 dòng) — xem xét tách nhỏ"

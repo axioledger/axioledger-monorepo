@@ -1,0 +1,140 @@
+name: Auto-Assign — Issues & Pull Requests
+
+# Tự động gán assignee và reviewer dựa trên label + path pattern.
+# Chạy 100% trên GitHub Actions Runner — không tốn tài nguyên máy chủ vật lý.
+
+on:
+  issues:
+    types: [opened, labeled]
+  pull_request:
+    types: [opened, ready_for_review, labeled]
+
+permissions:
+  issues: write
+  pull-requests: write
+
+jobs:
+  # ─────────────────────────────────────────────
+  # JOB A: Auto-assign Issues by label
+  # ─────────────────────────────────────────────
+  assign-issue:
+    name: Assign Issue
+    runs-on: ubuntu-latest
+    if: github.event_name == 'issues'
+    steps:
+      - name: Assign based on label
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const issue = context.payload.issue;
+            const labels = issue.labels.map(l => l.name);
+
+            // Bảng định tuyến: label → assignee (GitHub username)
+            const routingTable = {
+              'core':           ['axioledger-core-team'],
+              'contracts':      ['axioledger-contracts-team'],
+              'frontend':       ['axioledger-frontend-team'],
+              'docs':           ['axioledger-docs-team'],
+              'security':       ['axioledger-security-team'],
+              'ci/cd':          ['axioledger-devops-team'],
+              'bug':            ['axioledger-core-team'],
+              'enhancement':    ['axioledger-core-team'],
+            };
+
+            const assignees = new Set();
+            for (const label of labels) {
+              const owners = routingTable[label] ?? [];
+              owners.forEach(o => assignees.add(o));
+            }
+
+            if (assignees.size > 0) {
+              await github.rest.issues.addAssignees({
+                owner: context.repo.owner,
+                repo:  context.repo.repo,
+                issue_number: issue.number,
+                assignees: [...assignees],
+              });
+              console.log(`Assigned: ${[...assignees].join(', ')}`);
+            } else {
+              console.log('No matching labels found — skipping assignment.');
+            }
+
+  # ─────────────────────────────────────────────
+  # JOB B: Auto-assign PR reviewers by changed paths
+  # ─────────────────────────────────────────────
+  assign-pr-reviewer:
+    name: Assign PR Reviewer
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    steps:
+      - name: Checkout (để đọc changed files)
+        uses: actions/checkout@v4
+
+      - name: Assign reviewers based on changed paths
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const pr = context.payload.pull_request;
+
+            // Lấy danh sách file thay đổi
+            const { data: files } = await github.rest.pulls.listFiles({
+              owner: context.repo.owner,
+              repo:  context.repo.repo,
+              pull_number: pr.number,
+              per_page: 100,
+            });
+
+            const changedPaths = files.map(f => f.filename);
+
+            // Bảng định tuyến: path prefix → reviewer team
+            const pathOwners = [
+              { prefix: 'packages/axioledger/contracts/', reviewers: ['axioledger-contracts-team'] },
+              { prefix: 'packages/veraciphers/',          reviewers: ['axioledger-security-team'] },
+              { prefix: 'packages/kinetoprotocol/',       reviewers: ['axioledger-core-team'] },
+              { prefix: 'packages/sequentichain/',        reviewers: ['axioledger-core-team'] },
+              { prefix: 'packages/valiprecision/',        reviewers: ['axioledger-core-team'] },
+              { prefix: 'apps/',                          reviewers: ['axioledger-frontend-team'] },
+              { prefix: '.github/',                       reviewers: ['axioledger-devops-team'] },
+              { prefix: 'docs/',                          reviewers: ['axioledger-docs-team'] },
+            ];
+
+            const reviewers = new Set();
+            for (const { prefix, reviewers: owners } of pathOwners) {
+              if (changedPaths.some(p => p.startsWith(prefix))) {
+                owners.forEach(r => reviewers.add(r));
+              }
+            }
+
+            // Loại bỏ PR author khỏi danh sách reviewer
+            reviewers.delete(pr.user.login);
+
+            if (reviewers.size > 0) {
+              try {
+                await github.rest.pulls.requestReviewers({
+                  owner: context.repo.owner,
+                  repo:  context.repo.repo,
+                  pull_number: pr.number,
+                  team_reviewers: [...reviewers],
+                });
+                console.log(`Requested review from teams: ${[...reviewers].join(', ')}`);
+              } catch (err) {
+                // 422: team chưa tồn tại trong org hoặc PR author là thành viên duy nhất.
+                // Không block PR — chỉ log cảnh báo.
+                console.warn(`⚠️  Could not assign team reviewers (${err.status ?? err.message}). ` +
+                  `Ensure teams exist in the GitHub Organization. Skipping gracefully.`);
+              }
+            } else {
+              console.log('No path-based reviewers matched — skipping.');
+            }
+
+      - name: Add "needs-review" label on new PR
+        if: github.event.action == 'opened'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.issues.addLabels({
+              owner: context.repo.owner,
+              repo:  context.repo.repo,
+              issue_number: context.payload.pull_request.number,
+              labels: ['needs-review'],
+            });

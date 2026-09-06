@@ -1,0 +1,25 @@
+go 1.23.0
+
+use (
+    ./external/cosmos/cometbft
+    ./external/cosmos/cosmos-sdk
+    ./external/cosmos/evm
+    ./external/cosmos/gogoproto
+    ./external/cosmos/iavl
+    ./external/cosmos/ibc-go
+    ./external/cosmos/interchain-security
+    ./external/cosmos/interchaintest
+    ./external/cosmos/kms
+    ./external/cosmos/rosetta
+    ./external/cosmos/tokenfactory
+)
+
+// ── Upstream redirects ────────────────────────────────────────────────────────
+// Các axioledger/* forks của upstream deps chưa publish trên GitHub.
+// Trỏ về original upstream cho đến khi Axioledger publish các module này.
+replace (
+    github.com/axioledger/cometbft-db => github.com/cometbft/cometbft-db v0.14.1
+    github.com/axioledger/cosmos-db   => github.com/cosmos/cosmos-db v1.1.3
+    github.com/axioledger/go-ethereum => github.com/cosmos/go-ethereum v1.17.2-cosmos-0
+    github.com/ethereum/go-ethereum   => github.com/cosmos/go-ethereum v1.17.2-cosmos-0
+)

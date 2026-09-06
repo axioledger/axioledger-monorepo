@@ -1,0 +1,42 @@
+[submodule "packages/core/ethereum-lists/chains"]
+	path = packages/core/ethereum-lists/chains
+	url = https://github.com/ethereum-lists/chains.git
+[submodule "packages/core/ethereum-lists/tokens"]
+	path = packages/core/ethereum-lists/tokens
+	url = https://github.com/ethereum-lists/tokens.git
+[submodule "external/cosmos/cosmos-sdk"]
+	path = external/cosmos/cosmos-sdk
+	url = https://github.com/axioledger/cosmos-sdk.git
+[submodule "external/cosmos/evm"]
+	path = external/cosmos/evm
+	url = https://github.com/axioledger/evm.git
+[submodule "external/cosmos/gogoproto"]
+	path = external/cosmos/gogoproto
+	url = https://github.com/axioledger/gogoproto.git
+[submodule "external/cosmos/iavl"]
+	path = external/cosmos/iavl
+	url = https://github.com/axioledger/iavl.git
+[submodule "external/cosmos/ibc-contracts"]
+	path = external/cosmos/ibc-contracts
+	url = https://github.com/axioledger/ibc-contracts.git
+[submodule "external/cosmos/ibc-go"]
+	path = external/cosmos/ibc-go
+	url = https://github.com/axioledger/ibc-go.git
+[submodule "external/cosmos/interchain-security"]
+	path = external/cosmos/interchain-security
+	url = https://github.com/axioledger/interchain-security.git
+[submodule "external/cosmos/interchaintest"]
+	path = external/cosmos/interchaintest
+	url = https://github.com/axioledger/interchaintest.git
+[submodule "external/cosmos/kms"]
+	path = external/cosmos/kms
+	url = https://github.com/axioledger/kms.git
+[submodule "external/cosmos/rosetta"]
+	path = external/cosmos/rosetta
+	url = https://github.com/axioledger/rosetta.git
+[submodule "external/cosmos/tokenfactory"]
+	path = external/cosmos/tokenfactory
+	url = https://github.com/axioledger/tokenfactory.git
+[submodule "external/cosmos/cometbft"]
+	path = external/cosmos/cometbft
+	url = https://github.com/axioledger/cometbft.git

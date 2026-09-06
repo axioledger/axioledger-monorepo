@@ -1,0 +1,30 @@
+name: Sync Labels
+
+# Đồng bộ nhãn từ .github/labels.yml lên GitHub repository.
+# Chạy tự động khi labels.yml thay đổi, hoặc kích hoạt thủ công.
+# Toàn bộ xử lý diễn ra trên GitHub Runner — Zero-RAM local.
+
+on:
+  push:
+    branches: [main]
+    paths: [".github/labels.yml"]
+  workflow_dispatch:
+
+permissions:
+  issues: write
+
+jobs:
+  sync-labels:
+    name: Sync Labels to GitHub
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Sync labels from labels.yml
+        uses: EndBug/label-sync@v2
+        with:
+          config-file: .github/labels.yml
+          # delete-other-labels: false → giữ labels được tạo tay, chỉ thêm/sửa
+          delete-other-labels: false
+          token: ${{ secrets.GITHUB_TOKEN }}

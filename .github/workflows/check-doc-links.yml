@@ -1,0 +1,42 @@
+name: Doc Link Checker
+
+on:
+  push:
+    paths:
+      - 'docs/**/*.md'
+      - 'scripts/check-doc-links.js'
+  pull_request:
+    paths:
+      - 'docs/**/*.md'
+      - 'scripts/check-doc-links.js'
+  workflow_dispatch:
+
+jobs:
+  check-links:
+    name: Check Documentation Links
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Run link checker (strict mode)
+        run: node scripts/check-doc-links.js --strict
+
+      - name: Run link checker — logic/ only
+        if: always()
+        run: node scripts/check-doc-links.js --dir=docs/logic
+
+      - name: Upload link report on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: link-check-report
+          path: |
+            docs/**/*.md
+          retention-days: 7

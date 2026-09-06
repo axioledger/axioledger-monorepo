@@ -1,0 +1,63 @@
+# CODEOWNERS — Axioledger Monorepo
+#
+# Định nghĩa chủ sở hữu code theo từng vùng (path-based ownership).
+# GitHub tự động thêm các owner này làm Required Reviewers khi một PR
+# chạm vào đường dẫn tương ứng — hoạt động 100% native, không cần action.
+#
+# Tài liệu: https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
+#
+# Cú pháp:
+#   <path pattern>   <@user hoặc @org/team>
+#
+# Quy tắc: pattern sau cùng khớp sẽ thắng.
+# ──────────────────────────────────────────────────────────────────────────
+
+# ── Mặc định: mọi thay đổi đều cần DevOps review ──
+*                                   @axioledger/devops-team
+
+# ── Hạ tầng CI/CD & DevOps ──
+.github/                            @axioledger/devops-team
+.devcontainer/                      @axioledger/devops-team
+docker-compose*.yml                 @axioledger/devops-team
+ecosystem.config.cjs                @axioledger/devops-team
+go.work                             @axioledger/devops-team
+
+# ── Package cốt lõi ──
+packages/axioledger/                @axioledger/core-team
+packages/sequentichain/             @axioledger/core-team
+packages/kinetoprotocol/            @axioledger/core-team
+
+# ── Smart Contracts & Escrow (yêu cầu security review) ──
+packages/axioledger/contracts/      @axioledger/contracts-team @axioledger/security-team
+packages/axioledger/ibc-contracts/  @axioledger/contracts-team @axioledger/security-team
+contracts/                          @axioledger/contracts-team @axioledger/security-team
+
+# ── Cryptography & Security ──
+packages/veraciphers/               @axioledger/security-team
+packages/axioledger/kms/            @axioledger/security-team
+
+# ── Validation & Precision ──
+packages/valiprecision/             @axioledger/core-team
+
+# ── Frontend Applications ──
+apps/                               @axioledger/frontend-team
+packages/axioledger/ui-kit/         @axioledger/frontend-team
+packages/axioledger/wallet-connector/ @axioledger/frontend-team
+packages/dom/                       @axioledger/frontend-team
+packages/html/                      @axioledger/frontend-team
+packages/svg/                       @axioledger/frontend-team
+
+# ── Tài liệu ──
+docs/                               @axioledger/docs-team
+*.md                                @axioledger/docs-team
+README.md                           @axioledger/core-team @axioledger/docs-team
+
+# ── Cấu hình package manager & build ──
+package.json                        @axioledger/devops-team @axioledger/core-team
+pnpm-workspace.yaml                 @axioledger/devops-team
+.npmrc                              @axioledger/devops-team
+toolchain/                          @axioledger/devops-team
+
+# ── External / third-party submodules ──
+external/                           @axioledger/core-team
+packages/core/                      @axioledger/core-team

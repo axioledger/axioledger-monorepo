@@ -1,0 +1,11 @@
+packages:
+  - "."
+  - "apps/*"
+  - "packages/**"
+  - "packages/axioledger/*"
+  - "packages/valiprecision/*"
+  - "packages/sequentichain/*"
+  - "packages/kinetoprotocol/*"
+  - "packages/veraciphers/*"
+  - "external/cosmos/*"
+  - "toolchain/*"
