@@ -1,0 +1,16 @@
+{
+  "name": "@axioledger/time",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "index.js",
+  "description": "Subscribe to intervals, get the time now.",
+  "repository": "https://github.com/davictran76/axioledger/tree/main/packages/time",
+  "license": "MIT",
+  "keywords": [
+    "axioledger",
+    "interval",
+    "delay",
+    "time",
+    "now"
+  ]
+}

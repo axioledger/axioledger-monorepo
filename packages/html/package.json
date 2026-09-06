@@ -1,0 +1,16 @@
+{
+  "name": "@axioledger/html",
+  "version": "2.0.0",
+  "type": "module",
+  "main": "index.js",
+  "description": "Write HTML with plain functions.",
+  "repository": "https://github.com/davictran76/axioledger/tree/main/packages/html",
+  "license": "MIT",
+  "keywords": [
+    "axioledger",
+    "html"
+  ],
+  "peerDependencies": {
+    "axioledger": "workspace:*"
+  }
+}

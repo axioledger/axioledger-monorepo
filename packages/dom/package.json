@@ -1,0 +1,15 @@
+{
+  "name": "@axioledger/dom",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "index.js",
+  "description": "Inspect the DOM, focus and blur.",
+  "repository": "https://github.com/davictran76/axioledger/tree/main/packages/dom",
+  "license": "MIT",
+  "keywords": [
+    "axioledger",
+    "focus",
+    "blur",
+    "dom"
+  ]
+}

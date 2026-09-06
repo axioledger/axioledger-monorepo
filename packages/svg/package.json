@@ -1,0 +1,16 @@
+{
+  "name": "@axioledger/svg",
+  "version": "2.0.0",
+  "type": "module",
+  "main": "index.js",
+  "description": "Draw SVG with plain functions.",
+  "repository": "https://github.com/davictran76/axioledger/tree/main/packages/svg",
+  "license": "MIT",
+  "keywords": [
+    "axioledger",
+    "svg"
+  ],
+  "peerDependencies": {
+    "axioledger": "workspace:*"
+  }
+}
