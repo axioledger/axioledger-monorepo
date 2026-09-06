@@ -1,0 +1,36 @@
+{
+  "name": "@sequentichain/zk-batcher",
+  "version": "1.0.0",
+  "description": "Sequentichain ZK Batch Aggregator — bundles L2 state transitions into ZK-SNARK commitments for L1 submission",
+  "type": "module",
+  "main":   "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types":  "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import":  "./dist/index.js",
+      "require": "./dist/index.cjs",
+      "types":   "./dist/index.d.ts"
+    }
+  },
+  "files": ["dist", "src"],
+  "license": "MIT",
+  "scripts": {
+    "build":     "axio-build",
+    "dev":       "tsc --watch --noEmit",
+    "typecheck": "tsc --noEmit",
+    "test":      "vitest run",
+    "test:watch":"vitest",
+    "clean":     "rimraf dist"
+  },
+  "dependencies": {
+    "@sequentichain/async-task-runner": "workspace:*"
+  },
+  "devDependencies": {
+    "@axioledger/build-scripts": "workspace:*",
+    "@axioledger/tsconfig":      "workspace:*",
+    "typescript":                "^5.3.0",
+    "vitest":                    "^1.4.0"
+  },
+  "keywords": ["axioledger", "sequentichain", "zk-batcher", "snark", "batch", "l2", "rollup"]
+}

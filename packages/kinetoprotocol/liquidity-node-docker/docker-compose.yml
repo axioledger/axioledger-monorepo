@@ -1,0 +1,40 @@
+version: "3.9"
+
+# Kinetoprotocol Liquidity Node — Local Development Compose
+# Usage: docker compose up --build
+
+services:
+  liquidity-node:
+    build:
+      context: ../../../
+      dockerfile: packages/kinetoprotocol/liquidity-node-docker/Dockerfile
+    image: axioledger/liquidity-node:dev
+    container_name: axio-liquidity-node
+    restart: unless-stopped
+    ports:
+      - "8090:8090"
+    environment:
+      LP_NODE_ID: "lp-dev-01"
+      POOL_IDS: "AXQ:USDC:3000,AXQ:SQX:500"
+      REBALANCE_INTERVAL_MS: "30000"
+      LOG_LEVEL: "debug"
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://localhost:8090/health').then(r=>r.ok||process.exit(1)).catch(()=>process.exit(1))"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+  # Price feed oracle for local development
+  price-oracle:
+    image: node:20-slim
+    command: >
+      node -e "
+        const http = require('http');
+        const PRICES = { 'AXQ': 0.001, 'USDC': 1.0, 'SQX': 0.05 };
+        http.createServer((req, res) => {
+          res.writeHead(200, {'Content-Type':'application/json'});
+          res.end(JSON.stringify(PRICES));
+        }).listen(8099, () => console.log('Price oracle :8099'));
+      "
+    ports:
+      - "8099:8099"

@@ -1,0 +1,45 @@
+{
+  "name": "@kinetoprotocol/liquidity-node-docker",
+  "version": "1.0.0",
+  "description": "Kinetoprotocol Liquidity Node — Dockerized market maker environment: CLAMM position manager, automated rebalancer, and bribe aggregator",
+  "type": "module",
+  "main":   "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types":  "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import":  "./dist/index.js",
+      "require": "./dist/index.cjs",
+      "types":   "./dist/index.d.ts"
+    }
+  },
+  "files": ["dist", "src", "Dockerfile", "docker-compose.yml"],
+  "license": "MIT",
+  "scripts": {
+    "build":         "axio-build",
+    "dev":           "tsc --watch --noEmit",
+    "typecheck":     "tsc --noEmit",
+    "test":          "vitest run",
+    "test:watch":    "vitest",
+    "clean":         "rimraf dist",
+    "docker:build":  "docker build -t axioledger/liquidity-node:latest .",
+    "docker:run":    "docker run --rm axioledger/liquidity-node:latest"
+  },
+  "dependencies": {
+    "@kinetoprotocol/clamm-engine":    "workspace:*",
+    "@kinetoprotocol/market-registry": "workspace:*",
+    "@kinetoprotocol/intents-engine":  "workspace:*"
+  },
+  "devDependencies": {
+    "@axioledger/build-scripts":       "workspace:*",
+    "@axioledger/tsconfig":            "workspace:*",
+    "@kinetoprotocol/clamm-engine":    "workspace:*",
+    "@kinetoprotocol/market-registry": "workspace:*",
+    "typescript":                      "^5.3.0",
+    "vitest":                          "^1.4.0"
+  },
+  "keywords": [
+    "axioledger", "kinetoprotocol", "liquidity-node", "market-maker",
+    "docker", "clamm", "amm", "rebalancer", "defi"
+  ]
+}

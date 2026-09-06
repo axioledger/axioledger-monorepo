@@ -1,0 +1,33 @@
+version: "3.9"
+
+# Sequentichain L2 Sequencer — Local Development Compose
+# Usage: docker compose up --build
+
+services:
+  sequencer:
+    build:
+      context: ../../../  # monorepo root (needed for workspace deps)
+      dockerfile: packages/sequentichain/docker-runtime/Dockerfile
+    image: axioledger/sequencer:dev
+    container_name: axio-sequencer
+    restart: unless-stopped
+    network_mode: host           # required for AF_XDP zero-copy socket access
+    cap_add:
+      - NET_RAW                  # AF_XDP requires CAP_NET_RAW
+    ports:
+      - "8080:8080"              # HTTP / WebSocket RPC
+    environment:
+      SEQUENCER_ACCOUNT: "sequencer.axq"
+      MAX_BATCH_SIZE: "1000"
+      MAX_BATCH_DELAY_MS: "200"
+      LOG_LEVEL: "debug"
+    volumes:
+      - sequencer-data:/app/data  # persistent batch state
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://localhost:8080/health').then(r=>r.ok||process.exit(1)).catch(()=>process.exit(1))"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+volumes:
+  sequencer-data:
