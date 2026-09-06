@@ -1,0 +1,29 @@
+{
+  "name": "@axioledger/cli",
+  "version": "1.0.0",
+  "description": "Axioledger CLI — node & SDK management tool",
+  "type": "module",
+  "bin": {
+    "axioledger": "./dist/bin/axioledger.js",
+    "axq": "./dist/bin/axioledger.js"
+  },
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "license": "MIT",
+  "scripts": {
+    "build":     "axio-build",
+    "dev":       "tsc --watch --noEmit",
+    "typecheck": "tsc --noEmit",
+    "test":      "node --experimental-vm-modules node_modules/.bin/jest",
+    "lint":      "eslint src --ext .ts",
+    "clean":     "rimraf dist"
+  },
+  "devDependencies": {
+    "@axioledger/build-scripts": "workspace:*",
+    "@axioledger/eslint-config": "workspace:*",
+    "@axioledger/tsconfig": "workspace:*",
+    "typescript": "^5.3.0"
+  },
+  "keywords": ["axioledger", "cli", "axq", "blockchain", "node-management"]
+}

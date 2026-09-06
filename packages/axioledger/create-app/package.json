@@ -1,0 +1,26 @@
+{
+  "name": "@axioledger/create-app",
+  "version": "1.0.0",
+  "description": "Axioledger Project Scaffolding CLI — bootstrap new dApps, SVM programs & ZK circuits",
+  "type": "module",
+  "main": "./dist/index.js",
+  "bin": {
+    "create-axioledger-app": "./dist/bin/create-app.js"
+  },
+  "files": ["dist", "templates"],
+  "license": "MIT",
+  "scripts": {
+    "build":     "axio-build",
+    "dev":       "tsc --watch --noEmit",
+    "typecheck": "tsc --noEmit",
+    "test":      "vitest run",
+    "clean":     "rimraf dist"
+  },
+  "devDependencies": {
+    "@axioledger/build-scripts": "workspace:*",
+    "@axioledger/tsconfig":      "workspace:*",
+    "typescript":                "^5.3.0",
+    "vitest":                    "^1.4.0"
+  },
+  "keywords": ["axioledger", "create-app", "scaffolding", "cli", "template", "starter"]
+}
