@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "extends": "../../toolchain/tsconfig/base.json",
+  "compilerOptions": {
+    "jsx": "react-jsx",
+    "rootDir": "./src",
+    "outDir": "./dist",
+    "noEmit": true
+  },
+  "include": ["src", "vite.config.ts"],
+  "exclude": ["node_modules", "dist"]
+}

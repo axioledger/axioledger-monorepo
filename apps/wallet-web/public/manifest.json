@@ -1,0 +1,17 @@
+{
+  "short_name": "AxioPass",
+  "name": "AxioPass Wallet",
+  "description": "Axioledger Institutional Wallet",
+  "start_url": "/",
+  "display": "standalone",
+  "theme_color": "#FF3D71",
+  "background_color": "#101426",
+  "icons": [
+    {
+      "src": "/icons/AXQ_logo.svg",
+      "type": "image/svg+xml",
+      "sizes": "any",
+      "purpose": "any maskable"
+    }
+  ]
+}

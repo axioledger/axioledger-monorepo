@@ -1,0 +1,36 @@
+{
+  "name": "@axioledger/dao-dashboard",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Axioledger Dual-Chamber DAO Governance Portal — Proposals, Voting, Treasury & Axio-Tribunal",
+  "type": "module",
+  "scripts": {
+    "dev":       "vite",
+    "build":     "tsc --noEmit && vite build",
+    "preview":   "vite preview",
+    "typecheck": "tsc --noEmit",
+    "lint":      "eslint src --ext .ts,.tsx",
+    "test":      "vitest run",
+    "clean":     "rimraf dist"
+  },
+  "dependencies": {
+    "axioledger":                     "workspace:*",
+    "@axioledger/axioledger-adapter": "workspace:*",
+    "@axioledger/ui-kit":             "workspace:*",
+    "@axioledger/wallet-connector":   "workspace:*"
+  },
+  "devDependencies": {
+    "@axioledger/eslint-config":  "workspace:*",
+    "@axioledger/tsconfig":       "workspace:*",
+    "@types/react":               "^18.3.0",
+    "@types/react-dom":           "^18.3.0",
+    "@vitejs/plugin-react":       "^4.2.0",
+    "react":                      "^18.3.0",
+    "react-dom":                  "^18.3.0",
+    "rimraf":                     "^5.0.0",
+    "typescript":                 "^5.3.0",
+    "vite":                       "^5.2.0",
+    "vitest":                     "^1.4.0"
+  },
+  "keywords": ["axioledger", "dao", "governance", "voting", "tribunal", "treasury", "maci"]
+}
