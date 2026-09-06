@@ -14,7 +14,7 @@
 //! `docs/logic/GENESIS_ALLOCATION.md § 1`
 
 use borsh::{BorshDeserialize, BorshSerialize};
-use axioledger_program::{
+use solana_program::{
     account_info::{next_account_info, AccountInfo},
     entrypoint,
     entrypoint::ProgramResult,
