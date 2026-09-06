@@ -1,0 +1,40 @@
+{
+  "name": "@axioledger/kms",
+  "version": "2.0.22",
+  "private": true,
+  "description": "Key Management Service — LocalSoftKMS (dev) + HashiCorp Vault Transit (production)",
+  "main":  "dist/index.cjs",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs",
+      "types":  "./dist/index.d.ts"
+    }
+  },
+  "files": ["dist", "proto", "types"],
+  "scripts": {
+    "build":     "axio-build --entry src/index.ts --outdir dist",
+    "typecheck": "tsc --noEmit",
+    "test":      "vitest run",
+    "lint":      "eslint src/ --ext .ts"
+  },
+  "dependencies": {
+    "@noble/secp256k1": "2.1.0",
+    "@noble/hashes":    "1.7.2"
+  },
+  "devDependencies": {
+    "@axioledger/build-scripts": "workspace:*",
+    "@axioledger/tsconfig":      "workspace:*",
+    "@axioledger/eslint-config": "workspace:*",
+    "typescript":                "5.5.4",
+    "vitest":                    "2.0.5"
+  },
+  "repository": {
+    "type": "git",
+    "url":  "https://github.com/axioledger/kms.git"
+  },
+  "keywords": ["axioledger", "kms", "vault", "hsm", "secp256k1", "signing"],
+  "license": "Apache-2.0"
+}

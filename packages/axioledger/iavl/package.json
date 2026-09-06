@@ -1,0 +1,19 @@
+{
+  "name": "@axioledger/iavl",
+  "version": "2.0.22",
+  "private": true,
+  "description": "Immutable AVL+ Merkle tree for state storage",
+  "main": "index.js",
+  "types": "index.d.ts",
+  "files": ["index.js", "index.d.ts", "proto", "types"],
+  "scripts": {
+    "build": "echo 'Go/Rust module — go build ./... hoặc cargo build'",
+    "test":  "echo 'Go/Rust module — go test ./... hoặc cargo test'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/axioledger/iavl.git"
+  },
+  "keywords": ["axioledger", "cosmos", "iavl", "blockchain", "interchain"],
+  "license": "Apache-2.0"
+}

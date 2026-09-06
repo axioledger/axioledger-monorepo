@@ -1,0 +1,19 @@
+{
+  "name": "@axioledger/tokenfactory",
+  "version": "2.0.22",
+  "private": true,
+  "description": "5-Token Suite lifecycle management",
+  "main": "index.js",
+  "types": "index.d.ts",
+  "files": ["index.js", "index.d.ts", "proto", "types"],
+  "scripts": {
+    "build": "echo 'Go/Rust module — go build ./... hoặc cargo build'",
+    "test":  "echo 'Go/Rust module — go test ./... hoặc cargo test'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/axioledger/tokenfactory.git"
+  },
+  "keywords": ["axioledger", "cosmos", "tokenfactory", "blockchain", "interchain"],
+  "license": "Apache-2.0"
+}
