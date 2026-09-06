@@ -96,7 +96,12 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          submodules: recursive
+          submodules: false
+
+      - name: Init required submodules only
+        run: |
+          git submodule update --init --recursive packages/core/ethereum-lists/chains
+          git submodule update --init --recursive packages/core/ethereum-lists/tokens
 
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
