@@ -1,0 +1,160 @@
+{
+  "$schema": "https://design-tokens.github.io/community-group/format/",
+  "$metadata": {
+    "version": "2.0.22",
+    "generatedFrom": "packages/axioledger/ui-kit/src/tokens/",
+    "spec": "docs/AXIOLEDGER_ROADMAP.md §7 · docs/ui/design-system-roadmap.md",
+    "note": "Single Source of Truth — KHÔNG sửa file này tay. Sửa các file *.ts trong thư mục cha rồi chạy: pnpm --filter @axioledger/ui-kit run build:tokens"
+  },
+
+  "primitive": {
+    "color": {
+      "brand": {
+        "teal":   { "$value": "#49DBC8", "$type": "color", "$description": "Accent chính — logo, highlight, CTA" },
+        "green":  { "$value": "#BEFF6C", "$type": "color", "$description": "Success accent" },
+        "orange": { "$value": "#FC7339", "$type": "color", "$description": "Warning / CTA phụ" },
+        "purple": { "$value": "#AF96FB", "$type": "color", "$description": "Governance / DAO" },
+        "yellow": { "$value": "#FFF172", "$type": "color", "$description": "Reward / Yield indicator" }
+      },
+      "greyscale": {
+        "900": { "$value": "#101426", "$type": "color" },
+        "800": { "$value": "#151A30", "$type": "color" },
+        "700": { "$value": "#192038", "$type": "color" },
+        "600": { "$value": "#222B45", "$type": "color" },
+        "500": { "$value": "#2E3A59", "$type": "color" },
+        "400": { "$value": "#8F9BB3", "$type": "color" },
+        "300": { "$value": "#C5CEE0", "$type": "color" },
+        "200": { "$value": "#E4E9F2", "$type": "color" },
+        "100": { "$value": "#EDF1F7", "$type": "color" },
+        "50":  { "$value": "#F4F5F8", "$type": "color" }
+      },
+      "absolute": {
+        "black": { "$value": "#000000", "$type": "color" },
+        "white": { "$value": "#FFFFFF", "$type": "color" }
+      },
+      "status": {
+        "success": { "500": { "$value": "#00D68F", "$type": "color" } },
+        "warning": { "500": { "$value": "#FFAA00", "$type": "color" } },
+        "error":   { "500": { "$value": "#FF3D71", "$type": "color" } },
+        "info":    { "500": { "$value": "#0095FF", "$type": "color" } }
+      }
+    },
+    "spacing": {
+      "0":   { "$value": "0px",   "$type": "dimension" },
+      "1":   { "$value": "2px",   "$type": "dimension" },
+      "2":   { "$value": "4px",   "$type": "dimension" },
+      "3":   { "$value": "6px",   "$type": "dimension" },
+      "4":   { "$value": "8px",   "$type": "dimension" },
+      "5":   { "$value": "10px",  "$type": "dimension" },
+      "6":   { "$value": "12px",  "$type": "dimension" },
+      "8":   { "$value": "16px",  "$type": "dimension" },
+      "10":  { "$value": "20px",  "$type": "dimension" },
+      "12":  { "$value": "24px",  "$type": "dimension" },
+      "16":  { "$value": "32px",  "$type": "dimension" },
+      "20":  { "$value": "40px",  "$type": "dimension" },
+      "24":  { "$value": "48px",  "$type": "dimension" },
+      "32":  { "$value": "64px",  "$type": "dimension" },
+      "40":  { "$value": "80px",  "$type": "dimension" },
+      "48":  { "$value": "96px",  "$type": "dimension" },
+      "64":  { "$value": "128px", "$type": "dimension" },
+      "128": { "$value": "256px", "$type": "dimension" }
+    },
+    "radius": {
+      "none": { "$value": "0px",    "$type": "dimension" },
+      "xs":   { "$value": "2px",    "$type": "dimension" },
+      "sm":   { "$value": "4px",    "$type": "dimension" },
+      "md":   { "$value": "8px",    "$type": "dimension" },
+      "lg":   { "$value": "12px",   "$type": "dimension" },
+      "xl":   { "$value": "16px",   "$type": "dimension" },
+      "2xl":  { "$value": "24px",   "$type": "dimension" },
+      "3xl":  { "$value": "32px",   "$type": "dimension" },
+      "full": { "$value": "9999px", "$type": "dimension" }
+    },
+    "typography": {
+      "fontFamily": { "$value": "Work Sans, -apple-system, Segoe UI, sans-serif", "$type": "fontFamily" },
+      "fontSize": {
+        "overline": { "$value": "10px", "$type": "dimension" },
+        "caption":  { "$value": "12px", "$type": "dimension" },
+        "body-sm":  { "$value": "14px", "$type": "dimension" },
+        "body":     { "$value": "16px", "$type": "dimension" },
+        "h6":       { "$value": "20px", "$type": "dimension" },
+        "h5":       { "$value": "24px", "$type": "dimension" },
+        "h4":       { "$value": "34px", "$type": "dimension" },
+        "h3":       { "$value": "48px", "$type": "dimension" },
+        "h2":       { "$value": "60px", "$type": "dimension" },
+        "h1":       { "$value": "96px", "$type": "dimension" }
+      },
+      "fontWeight": {
+        "regular":  { "$value": 400, "$type": "fontWeight" },
+        "medium":   { "$value": 500, "$type": "fontWeight" },
+        "semibold": { "$value": 600, "$type": "fontWeight" },
+        "bold":     { "$value": 700, "$type": "fontWeight" }
+      }
+    }
+  },
+
+  "semantic": {
+    "color": {
+      "light": {
+        "text": {
+          "primary":   { "$value": "{primitive.color.greyscale.900}", "$type": "color" },
+          "secondary":  { "$value": "{primitive.color.greyscale.500}", "$type": "color" },
+          "disabled":  { "$value": "{primitive.color.greyscale.300}", "$type": "color" },
+          "inverse":   { "$value": "{primitive.color.absolute.white}", "$type": "color" }
+        },
+        "bg": {
+          "primary":   { "$value": "{primitive.color.absolute.white}", "$type": "color" },
+          "secondary": { "$value": "{primitive.color.greyscale.50}",   "$type": "color" },
+          "overlay":   { "$value": "rgba(16,20,38,0.6)",               "$type": "color" }
+        },
+        "surface": {
+          "default": { "$value": "{primitive.color.absolute.white}",  "$type": "color" },
+          "raised":  { "$value": "{primitive.color.greyscale.50}",    "$type": "color" }
+        },
+        "border": {
+          "default": { "$value": "{primitive.color.greyscale.100}", "$type": "color" },
+          "strong":  { "$value": "{primitive.color.greyscale.200}", "$type": "color" }
+        },
+        "accent": {
+          "teal":   { "$value": "{primitive.color.brand.teal}",   "$type": "color" },
+          "green":  { "$value": "{primitive.color.brand.green}",  "$type": "color" },
+          "purple": { "$value": "{primitive.color.brand.purple}", "$type": "color" }
+        },
+        "icon": {
+          "default": { "$value": "{primitive.color.greyscale.600}", "$type": "color" },
+          "active":  { "$value": "{primitive.color.brand.teal}",    "$type": "color" }
+        }
+      },
+      "dark": {
+        "text": {
+          "primary":   { "$value": "{primitive.color.absolute.white}",  "$type": "color" },
+          "secondary":  { "$value": "{primitive.color.greyscale.300}", "$type": "color" },
+          "disabled":  { "$value": "{primitive.color.greyscale.600}",  "$type": "color" },
+          "inverse":   { "$value": "{primitive.color.greyscale.900}",  "$type": "color" }
+        },
+        "bg": {
+          "primary":   { "$value": "{primitive.color.absolute.black}", "$type": "color" },
+          "secondary": { "$value": "{primitive.color.greyscale.900}",  "$type": "color" },
+          "overlay":   { "$value": "rgba(0,0,0,0.7)",                  "$type": "color" }
+        },
+        "surface": {
+          "default": { "$value": "{primitive.color.greyscale.900}", "$type": "color" },
+          "raised":  { "$value": "{primitive.color.greyscale.800}", "$type": "color" }
+        },
+        "border": {
+          "default": { "$value": "{primitive.color.greyscale.800}", "$type": "color" },
+          "strong":  { "$value": "{primitive.color.greyscale.700}", "$type": "color" }
+        },
+        "accent": {
+          "teal":   { "$value": "{primitive.color.brand.teal}",   "$type": "color" },
+          "green":  { "$value": "{primitive.color.brand.green}",  "$type": "color" },
+          "purple": { "$value": "{primitive.color.brand.purple}", "$type": "color" }
+        },
+        "icon": {
+          "default": { "$value": "{primitive.color.greyscale.400}", "$type": "color" },
+          "active":  { "$value": "{primitive.color.brand.teal}",    "$type": "color" }
+        }
+      }
+    }
+  }
+}

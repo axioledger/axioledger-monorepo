@@ -1,0 +1,57 @@
+{
+  "name": "@axioledger/ui-kit",
+  "version": "1.0.0",
+  "description": "AXQ Design System — Atomic UI components built on axioledger VDOM engine",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs",
+      "types":   "./dist/index.d.ts"
+    },
+    "./tokens": {
+      "import": "./dist/tokens/index.js",
+      "require": "./dist/tokens/index.cjs",
+      "types":   "./dist/tokens/index.d.ts"
+    }
+  },
+  "files": ["dist", "src"],
+  "license": "MIT",
+  "scripts": {
+    "build":     "axio-build",
+    "dev":       "tsc --watch --noEmit",
+    "typecheck": "tsc --noEmit",
+    "test":      "vitest run",
+    "test:watch":"vitest",
+    "lint":      "eslint src --ext .ts,.tsx",
+    "clean":     "rimraf dist"
+  },
+  "peerDependencies": {
+    "react":     ">=18.0.0",
+    "react-dom": ">=18.0.0"
+  },
+  "dependencies": {
+    "@cosmos-kit/core":   "^2.18.0",
+    "@cosmos-kit/react":  "^2.19.0",
+    "chain-registry":     "^1.69.0"
+  },
+  "devDependencies": {
+    "@axioledger/build-scripts": "workspace:*",
+    "@axioledger/eslint-config": "workspace:*",
+    "@axioledger/tsconfig":      "workspace:*",
+    "@testing-library/react":    "^14.3.0",
+    "@testing-library/user-event": "^14.5.0",
+    "@types/react":              "^18.3.0",
+    "@types/react-dom":          "^18.3.0",
+    "@vitejs/plugin-react":      "^4.2.0",
+    "jsdom":                     "^24.0.0",
+    "react":                     "^18.3.0",
+    "react-dom":                 "^18.3.0",
+    "typescript":                "^5.3.0",
+    "vitest":                    "^1.4.0"
+  },
+  "keywords": ["axioledger", "ui-kit", "design-system", "axq", "components", "react", "cosmos-kit"]
+}

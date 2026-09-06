@@ -1,0 +1,468 @@
+/**
+ * AXQ Design System — CSS Custom Properties
+ * v2.1 — Đồng bộ với docs/ui/DESIGN_SYSTEM.md
+ *
+ * Kiến trúc 3 tầng: Primitive → Semantic → Component
+ * Font: Work Sans · Dark mode: [data-theme="dark"] + prefers-color-scheme
+ *
+ * Cách dùng: color: var(--axq-text-primary, #101426);
+ */
+
+/* ══════════════════════════════════════════════════════════════════════════
+   LAYER 1 — PRIMITIVE
+   Giá trị gốc tuyệt đối. KHÔNG alias sang collection khác tại đây.
+   ══════════════════════════════════════════════════════════════════════════ */
+
+:root {
+  /* ── Greyscale ─────────────────────────────────────────────────────────── */
+  --axq-white: #FFFFFF;
+  --axq-black: #000000;
+  --axq-grey-100: #EDF1F7;
+  --axq-grey-200: #E4E9F2;
+  --axq-grey-300: #C5CEE0;
+  --axq-grey-400: #8F9BB3;
+  --axq-grey-500: #2E3A59;
+  --axq-grey-600: #222B45;
+  --axq-grey-700: #192038;
+  --axq-grey-800: #151A30;
+  --axq-grey-900: #101426;
+
+  /* ── Brand Colors ──────────────────────────────────────────────────────── */
+  --axq-brand-teal:   #49DBC8;
+  --axq-brand-green:  #BEFF6C;
+  --axq-brand-orange: #FC7339;
+  --axq-brand-pink:   #FD9FDD;
+  --axq-brand-purple: #AF96FB;
+  --axq-brand-yellow: #FFF172;
+  --axq-brand-grey:   #EFEFEF;
+
+  /* ── System Status Colors ──────────────────────────────────────────────── */
+  /* Info */
+  --axq-info-100: #F2F8FF;
+  --axq-info-200: #C7E2FF;
+  --axq-info-300: #94CBFF;
+  --axq-info-400: #42AAFF;
+  --axq-info-500: #0095FF;
+  --axq-info-600: #006FD6;
+  --axq-info-700: #0057C2;
+  --axq-info-800: #003F8F;
+  --axq-info-900: #002885;
+
+  /* Success */
+  --axq-success-100: #F0FFF5;
+  --axq-success-200: #CCFCE3;
+  --axq-success-300: #8CFAC7;
+  --axq-success-400: #2CE69B;
+  --axq-success-500: #00D68F;
+  --axq-success-600: #00B887;
+  --axq-success-700: #00997A;
+  --axq-success-800: #007D6C;
+  --axq-success-900: #004A45;
+
+  /* Warning */
+  --axq-warning-100: #FFFDF2;
+  --axq-warning-200: #FFF1C2;
+  --axq-warning-300: #FFE59E;
+  --axq-warning-400: #FFC94D;
+  --axq-warning-500: #FFAA00;
+  --axq-warning-600: #DB8B00;
+  --axq-warning-700: #B86E00;
+  --axq-warning-800: #945400;
+  --axq-warning-900: #703C00;
+
+  /* Error */
+  --axq-error-100: #FFF2F2;
+  --axq-error-200: #FFD6D6;
+  --axq-error-300: #FFADAD;
+  --axq-error-400: #FF708D;
+  --axq-error-500: #FF3D71;
+  --axq-error-600: #DB2C66;
+  --axq-error-700: #B81D5B;
+  --axq-error-800: #94124E;
+  --axq-error-900: #700940;
+
+  /* ── Spacing Scale ─────────────────────────────────────────────────────── */
+  --axq-space-0:   0px;
+  --axq-space-2:   2px;
+  --axq-space-4:   4px;
+  --axq-space-6:   6px;
+  --axq-space-8:   8px;
+  --axq-space-12:  12px;
+  --axq-space-16:  16px;
+  --axq-space-20:  20px;
+  --axq-space-24:  24px;
+  --axq-space-32:  32px;
+  --axq-space-40:  40px;
+  --axq-space-48:  48px;
+  --axq-space-64:  64px;
+  --axq-space-80:  80px;
+  --axq-space-96:  96px;
+  --axq-space-128: 128px;
+
+  /* ── Border Radius ─────────────────────────────────────────────────────── */
+  --axq-radius-none: 0px;
+  --axq-radius-xs:   2px;
+  --axq-radius-sm:   4px;
+  --axq-radius-md:   8px;
+  --axq-radius-lg:   12px;
+  --axq-radius-xl:   16px;
+  --axq-radius-2xl:  24px;
+  --axq-radius-3xl:  32px;
+  --axq-radius-full: 9999px;
+
+  /* ── Icon Sizes ────────────────────────────────────────────────────────── */
+  --axq-icon-size-standard: 20px;
+  --axq-icon-size-nav:      24px;
+  --axq-icon-size-large:    32px;
+
+  /* ── Typography — Work Sans ────────────────────────────────────────────── */
+  --axq-font-family: "Work Sans", -apple-system, "Segoe UI", system-ui, sans-serif;
+
+  --axq-font-size-overline: 10px;
+  --axq-font-size-caption:  12px;
+  --axq-font-size-body-sm:  14px;
+  --axq-font-size-body:     16px;
+  --axq-font-size-h6:       20px;
+  --axq-font-size-h5:       24px;
+  --axq-font-size-h4:       34px;
+  --axq-font-size-h3:       48px;
+  --axq-font-size-h2:       60px;
+  --axq-font-size-h1:       96px;
+
+  --axq-font-weight-regular:  400;
+  --axq-font-weight-medium:   500;
+  --axq-font-weight-semibold: 600;
+  --axq-font-weight-bold:     700;
+
+  --axq-line-height-tight:   1.1;
+  --axq-line-height-snug:    1.25;
+  --axq-line-height-normal:  1.5;
+  --axq-line-height-relaxed: 1.6;
+}
+
+/* ══════════════════════════════════════════════════════════════════════════
+   LAYER 2 — SEMANTIC (Light Mode default)
+   Ý nghĩa sử dụng UI. Override tại đây để đổi theme.
+   ══════════════════════════════════════════════════════════════════════════ */
+
+:root,
+[data-theme="light"] {
+
+  /* ── Text ──────────────────────────────────────────────────────────────── */
+  --axq-text-primary:   var(--axq-grey-900);   /* #101426 */
+  --axq-text-secondary: var(--axq-grey-500);   /* #2E3A59 */
+  --axq-text-tertiary:  var(--axq-grey-400);   /* #8F9BB3 */
+  --axq-text-disabled:  var(--axq-grey-300);   /* #C5CEE0 */
+  --axq-text-inverse:   var(--axq-white);      /* #FFFFFF */
+  --axq-text-brand:     var(--axq-black);      /* #000000 */
+  --axq-text-link:      var(--axq-info-700);   /* #0057C2 */
+  --axq-text-on-color:  var(--axq-white);      /* on colored bg */
+
+  /* Status text */
+  --axq-text-success: var(--axq-success-700); /* #00997A */
+  --axq-text-warning: var(--axq-warning-700); /* #B86E00 */
+  --axq-text-error:   var(--axq-error-700);   /* #B81D5B */
+  --axq-text-info:    var(--axq-info-700);    /* #0057C2 */
+
+  /* ── Background ────────────────────────────────────────────────────────── */
+  --axq-bg-primary:   var(--axq-white);        /* #FFFFFF */
+  --axq-bg-secondary: var(--axq-grey-100);     /* #EDF1F7 */
+  --axq-bg-tertiary:  var(--axq-grey-200);     /* #E4E9F2 */
+  --axq-bg-inverse:   var(--axq-grey-900);     /* #101426 */
+  --axq-bg-brand:     var(--axq-black);        /* #000000 */
+  --axq-bg-disabled:  var(--axq-grey-200);     /* #E4E9F2 */
+  --axq-bg-overlay:   rgba(16, 20, 38, 0.6);
+
+  /* Status backgrounds */
+  --axq-bg-success: var(--axq-success-100);  /* #F0FFF5 */
+  --axq-bg-warning: var(--axq-warning-100);  /* #FFFDF2 */
+  --axq-bg-error:   var(--axq-error-100);    /* #FFF2F2 */
+  --axq-bg-info:    var(--axq-info-100);     /* #F2F8FF */
+
+  /* ── Surface ───────────────────────────────────────────────────────────── */
+  --axq-surface-default: var(--axq-white);
+  --axq-surface-raised:  var(--axq-white);
+  --axq-surface-sunken:  var(--axq-grey-100);
+  --axq-surface-muted:   var(--axq-grey-100);
+
+  /* ── Border ────────────────────────────────────────────────────────────── */
+  --axq-border-default:  var(--axq-grey-200);  /* #E4E9F2 */
+  --axq-border-subtle:   var(--axq-grey-100);  /* #EDF1F7 */
+  --axq-border-strong:   var(--axq-grey-400);  /* #8F9BB3 */
+  --axq-border-disabled: var(--axq-grey-200);
+  --axq-border-focus:    var(--axq-info-500);  /* #0095FF */
+
+  /* ── Icon ──────────────────────────────────────────────────────────────── */
+  --axq-icon-primary:   var(--axq-grey-900);   /* #101426 */
+  --axq-icon-secondary: var(--axq-grey-500);   /* #2E3A59 */
+  --axq-icon-tertiary:  var(--axq-grey-400);   /* #8F9BB3 */
+  --axq-icon-disabled:  var(--axq-grey-300);   /* #C5CEE0 */
+  --axq-icon-inverse:   var(--axq-white);
+  --axq-icon-brand:     var(--axq-black);
+
+  /* ── Status (default values — same in both modes) ─────────────────────── */
+  --axq-status-success-default: var(--axq-success-500); /* #00D68F */
+  --axq-status-success-text:    var(--axq-success-700); /* #00997A */
+  --axq-status-success-bg:      var(--axq-success-100); /* #F0FFF5 */
+  --axq-status-success-light:   var(--axq-success-100);
+
+  --axq-status-warning-default: var(--axq-warning-500); /* #FFAA00 */
+  --axq-status-warning-text:    var(--axq-warning-700); /* #B86E00 */
+  --axq-status-warning-bg:      var(--axq-warning-100); /* #FFFDF2 */
+
+  --axq-status-error-default: var(--axq-error-500);   /* #FF3D71 */
+  --axq-status-error-text:    var(--axq-error-700);   /* #B81D5B */
+  --axq-status-error-bg:      var(--axq-error-100);   /* #FFF2F2 */
+
+  --axq-status-info-default: var(--axq-info-500);    /* #0095FF */
+  --axq-status-info-text:    var(--axq-info-700);    /* #0057C2 */
+  --axq-status-info-bg:      var(--axq-info-100);    /* #F2F8FF */
+  --axq-status-info-light:   var(--axq-info-100);
+
+  /* ── Semantic Radius ───────────────────────────────────────────────────── */
+  --axq-radius-button:   var(--axq-radius-2xl);   /* 24px */
+  --axq-radius-input:    var(--axq-radius-lg);    /* 12px */
+  --axq-radius-card:     var(--axq-radius-xl);    /* 16px */
+  --axq-radius-modal:    var(--axq-radius-2xl);   /* 24px */
+  --axq-radius-sheet:    var(--axq-radius-3xl);   /* 32px */
+  --axq-radius-chip:     var(--axq-radius-full);  /* 9999px */
+  --axq-radius-avatar:   var(--axq-radius-full);
+  --axq-radius-badge:    var(--axq-radius-sm);    /* 4px */
+  --axq-radius-tooltip:  var(--axq-radius-md);    /* 8px */
+  --axq-radius-dropdown: var(--axq-radius-md);    /* 8px */
+
+  /* ── Semantic Spacing ──────────────────────────────────────────────────── */
+  --axq-inset-xs: var(--axq-space-4);    /* 4px  */
+  --axq-inset-sm: var(--axq-space-8);   /* 8px  */
+  --axq-inset-md: var(--axq-space-16);  /* 16px */
+  --axq-inset-lg: var(--axq-space-24);  /* 24px */
+  --axq-inset-xl: var(--axq-space-32);  /* 32px */
+
+  --axq-gap-xs: var(--axq-space-4);    /* 4px  */
+  --axq-gap-sm: var(--axq-space-8);   /* 8px  */
+  --axq-gap-md: var(--axq-space-12);  /* 12px */
+  --axq-gap-lg: var(--axq-space-16);  /* 16px */
+  --axq-gap-xl: var(--axq-space-24);  /* 24px */
+}
+
+/* ══════════════════════════════════════════════════════════════════════════
+   LAYER 2 — SEMANTIC (Dark Mode)
+   Chỉ override tại đây — Component tokens tự thích nghi.
+   ══════════════════════════════════════════════════════════════════════════ */
+
+[data-theme="dark"] {
+  --axq-text-primary:   #F4F5F7;
+  --axq-text-secondary: #B0B5C1;
+  --axq-text-tertiary:  #757D8F;
+  --axq-text-disabled:  #373D49;
+  --axq-text-inverse:   #1A1A1A;
+  --axq-text-brand:     #FFFFFF;
+
+  --axq-bg-primary:   #121318;
+  --axq-bg-secondary: #1A1C23;
+  --axq-bg-tertiary:  #21242D;
+  --axq-bg-inverse:   #F4F5F7;
+  --axq-bg-brand:     #FFFFFF;
+  --axq-bg-disabled:  #2B2E38;
+  --axq-bg-overlay:   rgba(0, 0, 0, 0.7);
+
+  --axq-surface-default: #1A1C23;
+  --axq-surface-raised:  #21242D;
+  --axq-surface-sunken:  #121318;
+  --axq-surface-muted:   #21242D;
+
+  --axq-border-default:  #2B2E38;
+  --axq-border-subtle:   #21242D;
+  --axq-border-strong:   #373D49;
+  --axq-border-disabled: #2B2E38;
+
+  --axq-icon-primary:   #F4F5F7;
+  --axq-icon-secondary: #B0B5C1;
+  --axq-icon-tertiary:  #757D8F;
+  --axq-icon-brand:     #FFFFFF;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --axq-text-primary:   #F4F5F7;
+    --axq-text-secondary: #B0B5C1;
+    --axq-text-tertiary:  #757D8F;
+    --axq-text-disabled:  #373D49;
+    --axq-text-inverse:   #1A1A1A;
+    --axq-text-brand:     #FFFFFF;
+
+    --axq-bg-primary:   #121318;
+    --axq-bg-secondary: #1A1C23;
+    --axq-bg-tertiary:  #21242D;
+    --axq-bg-inverse:   #F4F5F7;
+    --axq-bg-brand:     #FFFFFF;
+    --axq-bg-disabled:  #2B2E38;
+    --axq-bg-overlay:   rgba(0, 0, 0, 0.7);
+
+    --axq-surface-default: #1A1C23;
+    --axq-surface-raised:  #21242D;
+    --axq-surface-sunken:  #121318;
+    --axq-surface-muted:   #21242D;
+
+    --axq-border-default:  #2B2E38;
+    --axq-border-subtle:   #21242D;
+    --axq-border-strong:   #373D49;
+
+    --axq-icon-primary:   #F4F5F7;
+    --axq-icon-secondary: #B0B5C1;
+    --axq-icon-brand:     #FFFFFF;
+  }
+}
+
+/* ══════════════════════════════════════════════════════════════════════════
+   LAYER 3 — COMPONENT TOKENS
+   Trỏ tới Semantic tokens. KHÔNG bao giờ trỏ thẳng về Primitive.
+   ══════════════════════════════════════════════════════════════════════════ */
+
+:root {
+
+  /* ── Button ────────────────────────────────────────────────────────────── */
+  --axq-btn-radius:         var(--axq-radius-button);      /* 24px */
+  --axq-btn-padding-y:      var(--axq-space-8);            /* 8px  */
+  --axq-btn-padding-x:      var(--axq-inset-md);           /* 16px */
+  --axq-btn-gap:            var(--axq-gap-sm);             /* 8px  */
+  --axq-btn-font-size:      var(--axq-font-size-body);     /* 16px */
+  --axq-btn-font-weight:    var(--axq-font-weight-medium); /* 500  */
+
+  --axq-btn-primary-bg:     var(--axq-bg-brand);
+  --axq-btn-primary-text:   var(--axq-text-inverse);
+  --axq-btn-disabled-bg:    var(--axq-bg-disabled);
+  --axq-btn-disabled-text:  var(--axq-text-disabled);
+  --axq-btn-ghost-border:   var(--axq-border-default);
+
+  /* ── Input ─────────────────────────────────────────────────────────────── */
+  --axq-input-bg:             var(--axq-surface-default);
+  --axq-input-text:           var(--axq-text-primary);
+  --axq-input-placeholder:    var(--axq-text-tertiary);
+  --axq-input-border:         var(--axq-border-default);
+  --axq-input-border-focus:   var(--axq-border-focus);
+  --axq-input-border-error:   var(--axq-status-error-default);
+  --axq-input-border-disabled:var(--axq-border-disabled);
+  --axq-input-bg-disabled:    var(--axq-bg-disabled);
+  --axq-input-text-disabled:  var(--axq-text-disabled);
+  --axq-input-label:          var(--axq-text-secondary);
+  --axq-input-helper:         var(--axq-text-tertiary);
+  --axq-input-error-text:     var(--axq-status-error-text);
+  --axq-input-radius:         var(--axq-radius-input);
+  --axq-input-padding-x:      var(--axq-inset-md);
+  --axq-input-padding-y:      var(--axq-inset-sm);
+
+  /* ── Card ──────────────────────────────────────────────────────────────── */
+  --axq-card-bg:          var(--axq-surface-default);
+  --axq-card-bg-hover:    var(--axq-bg-secondary);
+  --axq-card-border:      var(--axq-border-subtle);
+  --axq-card-title:       var(--axq-text-primary);
+  --axq-card-description: var(--axq-text-secondary);
+  --axq-card-metadata:    var(--axq-text-tertiary);
+  --axq-card-padding:     var(--axq-inset-lg);
+  --axq-card-gap:         var(--axq-gap-md);
+  --axq-card-radius:      var(--axq-radius-card);
+
+  /* ── Chip / Badge ──────────────────────────────────────────────────────── */
+  --axq-chip-bg:          var(--axq-bg-secondary);
+  --axq-chip-bg-active:   var(--axq-bg-brand);
+  --axq-chip-text:        var(--axq-text-primary);
+  --axq-chip-text-active: var(--axq-text-inverse);
+  --axq-chip-border:      var(--axq-border-default);
+  --axq-chip-radius:      var(--axq-radius-chip);
+  --axq-chip-font-size:   var(--axq-font-size-body-sm);
+
+  /* ── Toggle ────────────────────────────────────────────────────────────── */
+  --axq-toggle-active-bg:   var(--axq-status-success-default);  /* #00D68F */
+  --axq-toggle-inactive-bg: var(--axq-bg-tertiary);
+  --axq-toggle-thumb:       var(--axq-bg-primary);
+  --axq-toggle-disabled-bg: var(--axq-bg-disabled);
+  --axq-toggle-focus-ring:  var(--axq-border-focus);
+
+  /* ── Navbar ────────────────────────────────────────────────────────────── */
+  --axq-navbar-bg:             var(--axq-surface-default);
+  --axq-navbar-border:         var(--axq-border-subtle);
+  --axq-navbar-icon-active:    var(--axq-icon-brand);
+  --axq-navbar-icon-inactive:  var(--axq-icon-secondary);
+  --axq-navbar-label-active:   var(--axq-text-brand);
+  --axq-navbar-label-inactive: var(--axq-text-secondary);
+  --axq-navbar-height:         64px;
+
+  /* ── Modal ─────────────────────────────────────────────────────────────── */
+  --axq-modal-bg:          var(--axq-surface-default);
+  --axq-modal-overlay:     var(--axq-bg-overlay);
+  --axq-modal-border:      var(--axq-border-default);
+  --axq-modal-title:       var(--axq-text-primary);
+  --axq-modal-description: var(--axq-text-secondary);
+  --axq-modal-close-icon:  var(--axq-text-tertiary);
+  --axq-modal-padding:     var(--axq-inset-xl);
+  --axq-modal-gap:         var(--axq-gap-lg);
+  --axq-modal-radius:      var(--axq-radius-modal);
+
+  /* ── Avatar ────────────────────────────────────────────────────────────── */
+  --axq-avatar-bg:        var(--axq-bg-secondary);
+  --axq-avatar-text:      var(--axq-text-secondary);
+  --axq-avatar-border:    var(--axq-bg-primary);
+  --axq-avatar-ring:      var(--axq-bg-brand);
+  --axq-avatar-radius:    var(--axq-radius-avatar);
+  --axq-avatar-size-xs:   24px;
+  --axq-avatar-size-sm:   32px;
+  --axq-avatar-size-md:   40px;
+  --axq-avatar-size-lg:   56px;
+  --axq-avatar-size-xl:   80px;
+
+  /* ── Tooltip ───────────────────────────────────────────────────────────── */
+  --axq-tooltip-bg:         var(--axq-bg-inverse);
+  --axq-tooltip-text:       var(--axq-text-inverse);
+  --axq-tooltip-radius:     var(--axq-radius-tooltip);
+  --axq-tooltip-padding-x:  var(--axq-gap-md);
+  --axq-tooltip-padding-y:  var(--axq-gap-xs);
+  --axq-tooltip-font-size:  var(--axq-font-size-caption);
+}
+
+/* ══════════════════════════════════════════════════════════════════════════
+   UTILITY CLASSES
+   ══════════════════════════════════════════════════════════════════════════ */
+
+/* Font */
+.axq-font { font-family: var(--axq-font-family); }
+
+/* Icon base — applied by AXQIcon component */
+.axq-icon {
+  display: inline-block;
+  flex-shrink: 0;
+  transition: color 0.2s ease-in-out;
+}
+
+/* Icon color utilities */
+.axq-icon--primary   { color: var(--axq-icon-primary);   }
+.axq-icon--secondary { color: var(--axq-icon-secondary); }
+.axq-icon--tertiary  { color: var(--axq-icon-tertiary);  }
+.axq-icon--inverse   { color: var(--axq-icon-inverse);   }
+.axq-icon--brand     { color: var(--axq-icon-brand);     }
+.axq-icon--disabled  { color: var(--axq-icon-disabled);  opacity: 0.6; }
+
+/* Auto-invert icon on dark button */
+.axq-btn--primary .axq-icon,
+.axq-btn--primary img.axq-icon {
+  filter: brightness(0) invert(1);
+}
+
+/* Button base */
+.axq-btn {
+  border-radius: var(--axq-btn-radius);
+  padding: var(--axq-btn-padding-y) var(--axq-btn-padding-x);
+  font-family: var(--axq-font-family);
+  font-weight: var(--axq-btn-font-weight);
+  font-size: var(--axq-btn-font-size);
+  gap: var(--axq-btn-gap);
+}
+.axq-btn--primary {
+  background: var(--axq-btn-primary-bg);
+  color: var(--axq-btn-primary-text);
+}
+.axq-btn--disabled {
+  background: var(--axq-btn-disabled-bg);
+  color: var(--axq-btn-disabled-text);
+  pointer-events: none;
+}
