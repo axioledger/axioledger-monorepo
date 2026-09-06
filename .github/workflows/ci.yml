@@ -105,15 +105,13 @@ jobs:
 
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
-        with:
-          version: ${{ env.PNPM_VERSION }}
+        # version omitted — reads from package.json "packageManager": "pnpm@9.0.0"
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
           cache: pnpm
-          # Xác thực với registry.npmjs.org bằng NPM_TOKEN
           registry-url: https://registry.npmjs.org/
 
       - name: Install dependencies
@@ -146,8 +144,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
-        with:
-          version: ${{ env.PNPM_VERSION }}
       - uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
@@ -178,8 +174,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
-        with:
-          version: ${{ env.PNPM_VERSION }}
       - uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
@@ -214,8 +208,6 @@ jobs:
           node-version: ${{ env.NODE_VERSION }}
       - name: Check doc links
         run: node scripts/check-doc-links.js
-        # Không dùng --strict để CI không fail vì anchor slugs
-        # Đổi thành --strict khi docs đã chuẩn hóa hoàn toàn
 
   # ──────────────────────────────────────────────────────────────
   # JOB 5: Publish (chỉ chạy khi push lên main + có tag v*)
@@ -223,15 +215,11 @@ jobs:
   publish:
     name: Publish to NPM
     runs-on: ubuntu-latest
-    # rust-release-guard is a hard prerequisite for publish — no release
-    # goes out if the Rust security gate has not passed.
     needs: [typecheck, test, rust-release-guard]
     if: startsWith(github.ref, 'refs/tags/v')
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
-        with:
-          version: ${{ env.PNPM_VERSION }}
       - uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
