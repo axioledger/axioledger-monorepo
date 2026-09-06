@@ -1,0 +1,115 @@
+{
+  "_comment": "Axioledger Phase 0 Testnet Genesis Configuration — v2.1 MUTEX LOCK",
+  "_spec": "docs/logic/GENESIS_ALLOCATION.md + docs/AXIOLEDGER_ROADMAP.md §14",
+
+  "genesis_time": "2026-03-01T00:00:00Z",
+  "chain_id": "axioledger-testnet-phase0",
+  "initial_height": "1",
+
+  "consensus_params": {
+    "block": {
+      "max_bytes": "22020096",
+      "max_gas": "-1",
+      "time_iota_ms": "6000"
+    },
+    "evidence": {
+      "max_age_num_blocks": "100800",
+      "max_age_duration": "604800000000000"
+    },
+    "validator": {
+      "pub_key_types": ["ed25519"]
+    }
+  },
+
+  "app_state": {
+
+    "protocol_params": {
+      "_comment": "v2.1 MUTEX LOCK — chỉ thay đổi qua DAO governance vote",
+      "epoch_blocks": 100800,
+      "oracle_cooldown_epochs": 1,
+      "max_release_bps": 1000,
+      "basis_points_denominator": 10000
+    },
+
+    "zk_jury_params": {
+      "_comment": "ZK-Jury Slashing Matrix — docs/logic/GENESIS_ALLOCATION.md §2",
+      "jury_size": 15,
+      "min_juror_stake_axq": "10000000",
+      "min_uptime_bps": 9950,
+      "slash_inactivity_vpx_bps": 100,
+      "slash_outlier_axq_bps": 200,
+      "slash_collusion_bps": 10000,
+      "slash_collusion_ban_permanent": true,
+      "reward_honest_vote_bps": 5,
+      "vrf_selection": true
+    },
+
+    "tokenomics_genesis": {
+      "_comment": "5-Token Suite — tổng cung cố định, không lạm phát $AXQ",
+      "tokens": [
+        {
+          "symbol": "AXQ",
+          "role": "Layer-1 Governance & Reserve Asset",
+          "total_supply": "10000000000000",
+          "decimals": 18,
+          "inflation": false,
+          "initial_distribution": {
+            "liquidity_pool_bps":  3500,
+            "dao_treasury_bps":    2500,
+            "consensus_reward_bps":1500,
+            "l2_sequentichain_bps":1000,
+            "b2b_rwa_ecosystem_bps":1000,
+            "bug_bounty_tribunal_bps": 500
+          }
+        },
+        {
+          "symbol": "VPX",
+          "role": "Validator Network & Slashing Engine",
+          "decimals": 18,
+          "emission": "linear_block_reward",
+          "cooldown_epochs": 1
+        },
+        {
+          "symbol": "SQX",
+          "role": "L2 Sequencer Gas Token",
+          "decimals": 18,
+          "emission": "l2_gas_usage_mint",
+          "burn_rate_bps": 5000
+        },
+        {
+          "symbol": "KPX",
+          "role": "Liquidity & CLAMM AMM Gauge",
+          "decimals": 18,
+          "emission": "liquidity_mining",
+          "halving_rate_bps": 2000,
+          "halving_period_months": 12
+        },
+        {
+          "symbol": "VRQ",
+          "role": "Pay-per-Proof ZK Reward",
+          "decimals": 18,
+          "emission": "zk_proof_generated_mint"
+        }
+      ]
+    },
+
+    "hardware_validation_rules": {
+      "_comment": "Node Operator Quickstart — docs/logic/GENESIS_ALLOCATION.md §4",
+      "min_cpu_cores": 4,
+      "min_ram_gb": 8,
+      "min_nvme_storage_gb": 100,
+      "min_network_bandwidth_mbps": 100,
+      "architecture": ["x86_64", "arm64"]
+    },
+
+    "escrow_params": {
+      "_comment": "TreasuryEscrowContract constants — contracts/escrow/src/lib.rs",
+      "epoch_blocks": 100800,
+      "max_release_bps": 1000,
+      "oracle_cooldown_epochs": 1,
+      "treasury_dao_lock_months": 12,
+      "treasury_dao_unlock_rate_per_month_bps": 200,
+      "tge_bug_bounty_unlock_bps": 1000
+    }
+  }
+}

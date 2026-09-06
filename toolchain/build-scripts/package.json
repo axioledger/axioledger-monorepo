@@ -1,0 +1,15 @@
+{
+  "name": "@axioledger/build-scripts",
+  "version": "1.0.0",
+  "description": "Shared build utilities for Axioledger Monorepo",
+  "type": "module",
+  "main": "index.js",
+  "license": "MIT",
+  "bin": {
+    "axio-build": "./bin/axio-build.js"
+  },
+  "dependencies": {
+    "esbuild": "^0.20.0",
+    "rimraf": "^5.0.0"
+  }
+}

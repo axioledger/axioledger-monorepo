@@ -1,0 +1,220 @@
+{
+  "__inputs": [
+    {
+      "name": "DS_PROMETHEUS",
+      "label": "Prometheus",
+      "type": "datasource",
+      "pluginId": "prometheus"
+    }
+  ],
+  "__requires": [
+    { "type": "datasource", "id": "prometheus", "version": "1.0.0" }
+  ],
+  "annotations": { "list": [] },
+  "description": "Axioledger Validator Node — CPU, Memory, Network, Chain metrics",
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 1,
+  "id": null,
+  "links": [],
+  "panels": [
+    {
+      "id": 1,
+      "title": "CPU Usage %",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 0 },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percent",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              { "color": "green", "value": null },
+              { "color": "yellow", "value": 70 },
+              { "color": "red", "value": 90 }
+            ]
+          }
+        }
+      },
+      "targets": [
+        {
+          "datasource": { "type": "prometheus", "uid": "${DS_PROMETHEUS}" },
+          "expr": "axioledger_node_cpu_usage_percent",
+          "legendFormat": "{{node_id}} CPU"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "title": "Memory Used (MB)",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 0 },
+      "fieldConfig": {
+        "defaults": { "unit": "decmbytes" }
+      },
+      "targets": [
+        {
+          "datasource": { "type": "prometheus", "uid": "${DS_PROMETHEUS}" },
+          "expr": "axioledger_node_memory_used_mb",
+          "legendFormat": "{{node_id}} Used"
+        },
+        {
+          "datasource": { "type": "prometheus", "uid": "${DS_PROMETHEUS}" },
+          "expr": "axioledger_node_memory_total_mb",
+          "legendFormat": "{{node_id}} Total"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "title": "Memory Utilization",
+      "type": "gauge",
+      "gridPos": { "h": 6, "w": 6, "x": 0, "y": 8 },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percentunit",
+          "min": 0,
+          "max": 1,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              { "color": "green", "value": null },
+              { "color": "yellow", "value": 0.75 },
+              { "color": "red",    "value": 0.90 }
+            ]
+          }
+        }
+      },
+      "targets": [
+        {
+          "datasource": { "type": "prometheus", "uid": "${DS_PROMETHEUS}" },
+          "expr": "axioledger_node_memory_utilization_ratio",
+          "legendFormat": "{{node_id}}"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "title": "Connected Peers",
+      "type": "stat",
+      "gridPos": { "h": 6, "w": 6, "x": 6, "y": 8 },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              { "color": "red",    "value": null },
+              { "color": "yellow", "value": 3 },
+              { "color": "green",  "value": 10 }
+            ]
+          }
+        }
+      },
+      "options": { "colorMode": "background", "graphMode": "none" },
+      "targets": [
+        {
+          "datasource": { "type": "prometheus", "uid": "${DS_PROMETHEUS}" },
+          "expr": "axioledger_network_peer_count",
+          "legendFormat": "{{node_id}}"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "title": "Block Height",
+      "type": "stat",
+      "gridPos": { "h": 6, "w": 6, "x": 12, "y": 8 },
+      "fieldConfig": {
+        "defaults": { "unit": "short" }
+      },
+      "options": { "colorMode": "value", "graphMode": "area" },
+      "targets": [
+        {
+          "datasource": { "type": "prometheus", "uid": "${DS_PROMETHEUS}" },
+          "expr": "axioledger_chain_block_height",
+          "legendFormat": "{{node_id}}"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "title": "Pending Transactions",
+      "type": "stat",
+      "gridPos": { "h": 6, "w": 6, "x": 18, "y": 8 },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              { "color": "green",  "value": null },
+              { "color": "yellow", "value": 1000 },
+              { "color": "red",    "value": 5000 }
+            ]
+          }
+        }
+      },
+      "options": { "colorMode": "background" },
+      "targets": [
+        {
+          "datasource": { "type": "prometheus", "uid": "${DS_PROMETHEUS}" },
+          "expr": "axioledger_chain_pending_tx_count",
+          "legendFormat": "{{node_id}}"
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "title": "Node Uptime",
+      "type": "stat",
+      "gridPos": { "h": 4, "w": 12, "x": 0, "y": 14 },
+      "fieldConfig": {
+        "defaults": { "unit": "s" }
+      },
+      "options": { "colorMode": "value", "graphMode": "none" },
+      "targets": [
+        {
+          "datasource": { "type": "prometheus", "uid": "${DS_PROMETHEUS}" },
+          "expr": "axioledger_node_uptime_seconds",
+          "legendFormat": "{{node_id}} uptime"
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "title": "Last Scrape Age (ms)",
+      "type": "stat",
+      "gridPos": { "h": 4, "w": 12, "x": 12, "y": 14 },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "ms",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              { "color": "green", "value": null },
+              { "color": "yellow", "value": 30000 },
+              { "color": "red",   "value": 60000 }
+            ]
+          }
+        }
+      },
+      "options": { "colorMode": "background" },
+      "targets": [
+        {
+          "datasource": { "type": "prometheus", "uid": "${DS_PROMETHEUS}" },
+          "expr": "time() * 1000 - axioledger_scrape_timestamp_ms",
+          "legendFormat": "{{node_id}} age"
+        }
+      ]
+    }
+  ],
+  "refresh": "15s",
+  "schemaVersion": 39,
+  "tags": ["axioledger", "validator", "node-diagnostics"],
+  "time": { "from": "now-1h", "to": "now" },
+  "timepicker": {},
+  "title": "Axioledger — Validator Node Diagnostics",
+  "uid": "axioledger-node-v1",
+  "version": 1
+}

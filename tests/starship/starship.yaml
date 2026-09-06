@@ -1,0 +1,55 @@
+# StarshipJS Multi-chain Testnet Configuration
+# Axioledger Foundation — Phase 0 E2E Test Environment
+#
+# Chạy:
+#   npx starshipjs@latest start --config tests/starship/starship.yaml
+#   npx starshipjs@latest test  --file tests/starship/ibc-stress.test.ts
+#
+# Yêu cầu:
+#   - Docker Desktop 24+  (hoặc Podman 4+)
+#   - kubectl + Helm 3    (cho mode Kubernetes)
+#   - Node.js >= 20
+#   - 16GB RAM khuyến nghị cho full multi-chain stack
+
+name: axioledger-testnet-phase0
+
+chains:
+  # ── Chain 1: Axioledger L1 ──────────────────────────────────────────────────
+  - name: axioledger
+    type: cosmos
+    numValidators: 4
+    ports:
+      rpc:  26657
+      grpc: 9090
+      rest: 1317
+    build:
+      enabled: false        # Dùng image pre-built khi có; build từ source khi develop
+      # dockerfile: external/cosmos/cosmos-sdk/Dockerfile
+    genesis:
+      # Tham chiếu config/genesis.json cho production params
+      chain_id: axioledger-testnet-phase0
+      app_state:
+        gov:
+          voting_params:
+            voting_period: "30s"  # Rút ngắn cho E2E test
+        staking:
+          params:
+            unbonding_time: "60s"
+
+  # ── Chain 2: Ethereum (mock EVM) ─────────────────────────────────────────────
+  - name: ethereum-mock
+    type: evm
+    numValidators: 1
+    ports:
+      rpc: 8545
+    build:
+      enabled: false
+
+  # ── IBC Relayer ──────────────────────────────────────────────────────────────
+relayers:
+  - name: axioledger-eth-relayer
+    type: hermes
+    replicas: 1
+    chains:
+      - axioledger
+      - ethereum-mock

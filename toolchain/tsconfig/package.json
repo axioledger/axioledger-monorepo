@@ -1,0 +1,11 @@
+{
+  "name": "@axioledger/tsconfig",
+  "version": "1.0.0",
+  "description": "Shared TypeScript configurations for Axioledger Monorepo",
+  "license": "MIT",
+  "exports": {
+    "./base":    "./base.json",
+    "./nextjs":  "./nextjs.json",
+    "./library": "./library.json"
+  }
+}

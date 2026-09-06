@@ -1,0 +1,26 @@
+global:
+  scrape_interval:     15s   # Khớp với PrometheusHttpServer.scrapeIntervalMs = 15_000
+  evaluation_interval: 15s
+  # Labels toàn cục — gắn vào mọi time series
+  external_labels:
+    project:     "axioledger"
+    environment: "testnet-phase0"
+
+scrape_configs:
+  # ── Axioledger Validator Node Diagnostics ──────────────────────────────────
+  # Scrape endpoint /metrics từ @valiprecision/node-diagnostics
+  - job_name: "axioledger-validator"
+    static_configs:
+      - targets: ["axio-validator:9100"]
+        labels:
+          role: "validator"
+          chain_id: "axioledger-testnet-phase0"
+    # Giữ lại tất cả labels từ metric (node_id, region, chain_id)
+    honor_labels: true
+    metrics_path: /metrics
+    scrape_timeout: 10s
+
+  # ── Prometheus self-monitoring ────────────────────────────────────────────
+  - job_name: "prometheus"
+    static_configs:
+      - targets: ["localhost:9090"]
