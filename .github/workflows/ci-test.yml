@@ -27,12 +27,16 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          submodules: recursive
+          submodules: false
+
+      - name: Init required submodules only
+        run: |
+          git submodule update --init --recursive packages/core/ethereum-lists/chains
+          git submodule update --init --recursive packages/core/ethereum-lists/tokens
 
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
-        with:
-          version: ${{ env.PNPM_VERSION }}
+        # version omitted — reads from package.json "packageManager": "pnpm@9.0.0"
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
