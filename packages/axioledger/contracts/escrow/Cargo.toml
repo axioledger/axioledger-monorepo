@@ -1,0 +1,31 @@
+[package]
+name    = "treasury-escrow-contract"
+version = "1.0.0"
+edition = "2021"
+description = "TreasuryEscrowContract — Axioledger On-chain KPI-based Disbursement"
+license = "MIT"
+
+[lib]
+crate-type = ["cdylib", "lib"]
+name = "treasury_escrow_contract"
+
+[features]
+default = []
+no-entrypoint = []
+# testnet-stub: CHỈ dùng cho unit test local và CI dev pipeline.
+# TUYỆT ĐỐI KHÔNG bật feature này trong bản build Mainnet hoặc Testnet public.
+# CI guard: script scripts/ci-check-features.sh kiểm tra flag này trước khi release.
+testnet-stub = []
+
+[dependencies]
+borsh             = "1.3"
+axioledger_program = { version = "2.0", features = [] }
+
+[dev-dependencies]
+axioledger-program-test = "2.0"
+tokio                    = { version = "1", features = ["full"] }
+
+[profile.release]
+overflow-checks = true     # bắt buộc cho contract tài chính
+lto             = "thin"
+opt-level       = 3

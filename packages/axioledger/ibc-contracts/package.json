@@ -1,0 +1,19 @@
+{
+  "name": "@axioledger/ibc-contracts",
+  "version": "2.0.22",
+  "private": true,
+  "description": "IBC v2 smart contracts (Solidity / CosmWasm)",
+  "main": "index.js",
+  "types": "index.d.ts",
+  "files": ["index.js", "index.d.ts", "proto", "types"],
+  "scripts": {
+    "build": "echo 'Go/Rust module — go build ./... hoặc cargo build'",
+    "test":  "echo 'Go/Rust module — go test ./... hoặc cargo test'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/axioledger/ibc-contracts.git"
+  },
+  "keywords": ["axioledger", "cosmos", "ibc-contracts", "blockchain", "interchain"],
+  "license": "Apache-2.0"
+}
