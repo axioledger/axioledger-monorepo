@@ -1,0 +1,19 @@
+{
+  "name": "@axioledger/interchaintest",
+  "version": "2.0.22",
+  "private": true,
+  "description": "E2E multi-chain testing framework",
+  "main": "index.js",
+  "types": "index.d.ts",
+  "files": ["index.js", "index.d.ts", "proto", "types"],
+  "scripts": {
+    "build": "echo 'Go/Rust module — go build ./... hoặc cargo build'",
+    "test":  "echo 'Go/Rust module — go test ./... hoặc cargo test'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/axioledger/interchaintest.git"
+  },
+  "keywords": ["axioledger", "cosmos", "interchaintest", "blockchain", "interchain"],
+  "license": "Apache-2.0"
+}
