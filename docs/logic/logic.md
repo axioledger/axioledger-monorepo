@@ -1,4 +1,3 @@
-```markdown
 # Comprehensive Architecture & Execution Spec: Axioledger ($AXQ) Genesis Ledger & Monorepo Infrastructure
 
 **Master System Document Version:** 1.0.0-GENESIS  
@@ -635,7 +634,5 @@ To illustrate how human actors interact with Axioledger, the following scenarios
 30. **Zero-Knowledge Ad Viewing:** A user opts in to view privacy-preserving ads tailored to their ZK-profile. This aligns advertiser and user incentives, earning direct ad revenue payouts in **$SQX**.
 31. **Delegated Staking Participation:** A token holder delegates their $AXQ / $VPX balance to a high-performing validator node. This increases network consensus security, earning passive staking yield in **$VPX**.
 32. **Web3 Commercial Purchasing:** A customer pays for real-world goods or services using $AXQ via their AxioPass wallet. This closes the loop on crypto utility, earning instant cashback in **$KPX / $SQX**.
-
-```
 
 ```
